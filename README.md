@@ -2,7 +2,7 @@
 
 ME.Api.Sdk is a C# SDK that simplifies integration with Mercado Eletrônico APIs and Webhooks. It provides built-in authentication, retry handling, and rate-limit management, enabling a smoother and more efficient integration experience. 
 
-**APIs Reference:**: [Mercado Eletrônico APIs](https://developer.me.com.br/)
+**APIs Reference:** [Mercado Eletrônico APIs](https://developer.me.com.br/)
 
 ## Requirements
 .NET 6.0 or higher
@@ -56,7 +56,7 @@ If you prefer not to use Dependency Injection, you can instantiate the client di
 ```csharp
 var settings = new MEApiSettings
 {
-    BaseAddress = "https://trunk.api.mercadoe.com",
+    BaseAddress = "https://api.mercadoe.com",
     ClientId = "ClientId",
     ClientSecret = "ClientSecret"
 };
