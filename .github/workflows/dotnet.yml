@@ -25,7 +25,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Read Version
       id: read_version
-      run: echo "##[set-output name=VERSION;]$(jq -r .version project.json)"
+      run: echo "VERSION=$(jq -r .version project.json)" >> $GITHUB_OUTPUT
     - name: Pack
       run: dotnet pack --no-build -o ./nupkg /p:PackageVersion=${{ steps.read_version.outputs.VERSION }}
     #- name: Publish to NuGet
