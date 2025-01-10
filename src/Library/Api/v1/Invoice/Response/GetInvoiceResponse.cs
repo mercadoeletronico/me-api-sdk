@@ -11,4 +11,5 @@ public class GetInvoiceResponse
     public string? ClientSupplierId { get; set; }
     public string? Currency { get; set; }
     public DateTime? CreationDate { get; set; }
+    public string? UserLogin { get; set; }
 }
