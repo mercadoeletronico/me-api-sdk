@@ -42,4 +42,9 @@ public class UserClient : IUserClient
     {
         return await _httpClient.GetPagingResultAsync<GetUserPurchasingGroupsResponse>($"/v1/users/{request.UserId}/purchasing-groups", cancellationToken);
     }
+
+    public async Task<IList<GetUserCostCentersResponse>> GetUserCostCentersAsync(GetUserCostCentersRequest request, CancellationToken cancellationToken)
+    {
+        return await _httpClient.GetPagingResultAsync<GetUserCostCentersResponse>($"/v1/users/{request.UserId}/cost-centers", cancellationToken);
+    }
 }

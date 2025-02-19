@@ -11,4 +11,5 @@ public interface IUserClient
     Task<CreateUserResponse> CreateAsync(CreateUserRequest request, string? correlationId, CancellationToken cancellationToken);
     Task<UpdateUserResponse> UpdateAsync(UpdateUserRequest request, string? correlationId, CancellationToken cancellationToken);
     Task<IList<GetUserPurchasingGroupsResponse>> GetUserPurchasingGroupsAsync(GetUserPurchasingGroupsRequest request, CancellationToken cancellationToken);
+    Task<IList<GetUserCostCentersResponse>> GetUserCostCentersAsync(GetUserCostCentersRequest request, CancellationToken cancellationToken);
 }
