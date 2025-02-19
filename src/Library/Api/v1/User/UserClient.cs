@@ -27,4 +27,14 @@ public class UserClient : IUserClient
     {
         return await _httpClient.GetPagingResultAsync<GetAllResponse>($"/v1/users", cancellationToken);
     }
+
+    public async Task<CreateUserResponse> CreateAsync(CreateUserRequest request, string? correlationId, CancellationToken cancellationToken)
+    {
+        return await _httpClient.PostAsync<CreateUserResponse>("/v1/users", request, correlationId, cancellationToken);
+    }
+
+    public async Task<UpdateUserResponse> UpdateAsync(UpdateUserRequest request, string? correlationId, CancellationToken cancellationToken)
+    {
+        return await _httpClient.PutAsync<UpdateUserResponse>($"/v1/users/{request.Id}", request, correlationId, cancellationToken);
+    }
 }

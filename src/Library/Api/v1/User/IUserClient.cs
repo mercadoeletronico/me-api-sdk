@@ -8,4 +8,6 @@ public interface IUserClient
     Task<GetUserResponse> GetUserAsync(GetUserRequest request, CancellationToken cancellationToken);
     Task<IList<GetUserBusinessOrganizationsResponse>> GetUserBusinessOrganizationsAsync(GetUserBusinessOrganizationsRequest request, CancellationToken cancellationToken);
     Task<IList<GetAllResponse>> GetAllAsync(GetAllRequest request, CancellationToken cancellationToken);
+    Task<CreateUserResponse> CreateAsync(CreateUserRequest request, string? correlationId, CancellationToken cancellationToken);
+    Task<UpdateUserResponse> UpdateAsync(UpdateUserRequest request, string? correlationId, CancellationToken cancellationToken);
 }
