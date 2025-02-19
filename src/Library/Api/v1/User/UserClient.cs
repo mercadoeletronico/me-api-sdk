@@ -37,4 +37,9 @@ public class UserClient : IUserClient
     {
         return await _httpClient.PutAsync<UpdateUserResponse>($"/v1/users/{request.Id}", request, correlationId, cancellationToken);
     }
+
+    public async Task<IList<GetUserPurchasingGroupsResponse>> GetUserPurchasingGroupsAsync(GetUserPurchasingGroupsRequest request, CancellationToken cancellationToken)
+    {
+        return await _httpClient.GetPagingResultAsync<GetUserPurchasingGroupsResponse>($"/v1/users/{request.UserId}/purchasing-groups", cancellationToken);
+    }
 }
