@@ -16,6 +16,7 @@
     <PropertyGroup>
         <Title>ME API SDK</Title>
         <PackageId>ME.Api.Sdk</PackageId>
+        <Version>3.0.0</Version>
         <Authors>Mercado Eletrônico S/A</Authors>
         <Description>A C# SDK that streamlines integration with Mercado Eletrônico's APIs and Webhooks. It offers built-in authentication, automatic retry policies, and rate-limit management to simplify and enhance the development experience.</Description>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
