@@ -4,8 +4,26 @@ ME.Api.Sdk is a C# SDK that simplifies integration with Mercado Eletrônico APIs
 
 **APIs Reference:** [Mercado Eletrônico APIs](https://developer.me.com.br/)
 
-## Requirements
-.NET 6.0 or higher
+## Framework Compatibility
+The SDK supports multiple .NET frameworks to accommodate various project requirements:
+
+- .NET Standard 2.0 (compatible with .NET Framework 4.6.1 and above)
+- .NET Standard 2.1 (compatible with .NET Core 3.0 and above)
+- .NET 6.0
+- .NET 8.0
+
+### Version 3.0.0 Changes
+This major version introduces broader framework support through .NET Standard:
+- Added support for .NET Standard 2.0 and 2.1, enabling usage in older .NET Framework projects
+- Added support for .NET 8.0
+- Optimized language features per framework version
+- Updated package dependencies for cross-framework compatibility
+
+### Framework-Specific Features
+The SDK automatically adjusts its features based on your target framework:
+- .NET Standard 2.0/.NET Framework: Basic functionality with traditional C# features
+- .NET Standard 2.1: Enhanced type system and newer language features
+- .NET 6.0/8.0: Full modern C# features including file-scoped namespaces and nullable reference types
 
 ## Installation
 
@@ -62,6 +80,15 @@ var settings = new MEApiSettings
 };
 var apiClient = new MEApiClient(settings);
 ```
+
+### Migration from Previous Versions
+When upgrading to version 3.0.0:
+1. Review your target framework compatibility
+2. Update package references to the latest version
+3. If using .NET Standard 2.0/.NET Framework:
+   - Ensure explicit `using` directives are present (no implicit usings)
+   - Replace nullable reference type annotations if used
+4. Test your integration thoroughly after upgrading
 
 ## Usage
 To interact with the APIs, inject the `IMEApiClient` and enjoy!
