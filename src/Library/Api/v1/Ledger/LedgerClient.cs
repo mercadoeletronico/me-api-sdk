@@ -1,11 +1,14 @@
-﻿using ME.Sdk.Library.Api.v1.Ledger.Request;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using ME.Sdk.Library.Api.v1.Ledger.Request;
 using ME.Sdk.Library.Api.v1.Ledger.Response;
 
-namespace ME.Sdk.Library.Api.v1.Ledger;
-
-public class LedgerClient : ILedgerClient
+namespace ME.Sdk.Library.Api.v1.Ledger
 {
-    private readonly IApiHttpClient _httpClient;
+    public class LedgerClient : ILedgerClient
+    {
+        private readonly IApiHttpClient _httpClient;
 
     public LedgerClient(IApiHttpClient httpClient)
     {
@@ -30,5 +33,6 @@ public class LedgerClient : ILedgerClient
     public async Task<DeleteLedgerResponse> DeleteAsync(DeleteLedgerRequest request, string code, string? correlationId, CancellationToken cancellationToken)
     {
         return await _httpClient.PostAsync<DeleteLedgerResponse>($"/v1/ledgers/{code}/relationships/delete", request, correlationId, cancellationToken);
+    }
     }
 }

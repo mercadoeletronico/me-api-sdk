@@ -1,6 +1,7 @@
-namespace ME.Sdk.Library.Api.v1.PreOrder.Request;
-
-public class GetPreOrderRequest
+namespace ME.Sdk.Library.Api.v1.PreOrder.Request
 {
-    public int PreOrderId { get; set; }
+    public class GetPreOrderRequest
+    {
+        public int PreOrderId { get; set; }
+    }
 }

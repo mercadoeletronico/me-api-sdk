@@ -1,24 +1,30 @@
 using ME.Sdk.Library.Api.v1.DecisionTable.Request;
 using ME.Sdk.Library.Api.v1.DecisionTable.Response;
 
-namespace ME.Sdk.Library.Api.v1.DecisionTable;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class DecisionTableClient : IDecisionTableClient
+namespace ME.Sdk.Library.Api.v1.DecisionTable
 {
-    private readonly IApiHttpClient _httpClient;
-
-    public DecisionTableClient(IApiHttpClient httpClient)
+    public class DecisionTableClient : IDecisionTableClient
     {
-        _httpClient = httpClient;
-    }
+        private readonly IApiHttpClient _httpClient;
 
-    public async Task<CreateDecisionTableResponse> CreateAsync(CreateDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken)
-    {
-        return await _httpClient.PostAsync<CreateDecisionTableResponse>($"/v1/decision-table", request, correlationId, cancellationToken);
-    }
+        public DecisionTableClient(IApiHttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
 
-    public async Task<DeleteDecisionTableResponse> DeleteAsync(DeleteDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken)
-    {
-        return await _httpClient.DeleteAsync<DeleteDecisionTableResponse>($"/v1/decision-table", request, correlationId, cancellationToken);
+        public async Task<CreateDecisionTableResponse> CreateAsync(CreateDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken)
+        {
+            return await _httpClient.PostAsync<CreateDecisionTableResponse>($"/v1/decision-table", request, correlationId, cancellationToken);
+        }
+
+        public async Task<DeleteDecisionTableResponse> DeleteAsync(DeleteDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken)
+        {
+            return await _httpClient.DeleteAsync<DeleteDecisionTableResponse>($"/v1/decision-table", request, correlationId, cancellationToken);
+        }
     }
 }

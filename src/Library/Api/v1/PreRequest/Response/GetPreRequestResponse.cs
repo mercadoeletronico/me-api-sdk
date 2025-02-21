@@ -1,7 +1,12 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class GetPreRequestResponse
+namespace ME.Sdk.Library.Api.v1.PreRequest.Response
 {
+    public class GetPreRequestResponse
+    {
     public string PreRequestId { get; set; }
     public string Title { get; set; }
     public string Note { get; set; }
@@ -10,4 +15,5 @@ public class GetPreRequestResponse
     public int ClientBillingLocationId { get; set; }
     public int ClientCollectionPaymentLocationId { get; set; }
     public List<GetPreRequestAttributeResponse> Attributes { get; set; }
+    }
 }

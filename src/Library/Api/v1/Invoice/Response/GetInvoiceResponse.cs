@@ -1,7 +1,9 @@
-﻿namespace ME.Sdk.Library.Api.v1.Invoice.Response;
+﻿using System;
 
-public class GetInvoiceResponse
+namespace ME.Sdk.Library.Api.v1.Invoice.Response
 {
+    public class GetInvoiceResponse
+    {
     public string? SerialNumber { get; set; }
     public string? InvoiceNumber { get; set; }
     public DateTime? IssueDate { get; set; }
@@ -12,4 +14,5 @@ public class GetInvoiceResponse
     public string? Currency { get; set; }
     public DateTime? CreationDate { get; set; }
     public string? UserLogin { get; set; }
+    }
 }

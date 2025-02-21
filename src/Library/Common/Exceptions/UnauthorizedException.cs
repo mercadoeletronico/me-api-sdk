@@ -1,8 +1,11 @@
-namespace ME.Sdk.Library.Common.Exceptions;
+using System;
 
-public class UnauthorizedException : MEApiClientException
+namespace ME.Sdk.Library.Common.Exceptions
 {
-    public UnauthorizedException(string? message) : base(message)
+    public class UnauthorizedException : MEApiClientException
     {
+        public UnauthorizedException(string? message) : base(message)
+        {
+        }
     }
 }

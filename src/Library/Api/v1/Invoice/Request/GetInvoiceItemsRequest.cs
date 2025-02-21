@@ -1,6 +1,7 @@
-﻿namespace ME.Sdk.Library.Api.v1.Invoice.Request;
-
-public class GetInvoiceItemsRequest
+﻿namespace ME.Sdk.Library.Api.v1.Invoice.Request
 {
-    public int InvoiceId { get; set; }
+    public class GetInvoiceItemsRequest
+    {
+        public int InvoiceId { get; set; }
+    }
 }

@@ -1,7 +1,9 @@
-﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request;
+﻿using System.Collections.Generic;
 
-public class CreateLedgerRequest
+namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
+    public class CreateLedgerRequest
+    {
     public string Code { get; set; }
     public string Description { get; set; }
     public bool IsActive { get; set; }
@@ -13,4 +15,5 @@ public class CreateLedgerRequest
     public List<CreateLedgerBusinessOrganizationRequest>? BusinessOrganizations { get; set; }
     public List<CreateLedgerCostCenterRequest>? CostCenters { get; set; }
     public List<CreateLedgerCostCenterRequest>? ServiceOrders { get; set; }
+}
 }

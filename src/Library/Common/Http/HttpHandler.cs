@@ -1,20 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-
+using System.Threading;
+using System.Threading.Tasks;
 using ME.Sdk.Library.Common.Exceptions;
 using ME.Sdk.Library.Common.Model;
-
 using Microsoft.Extensions.Logging;
-
 using Polly;
 using Polly.Retry;
 
-namespace ME.Sdk.Library.Common.Http;
-
-public class HttpHandler : IHttpHandler, IDisposable
+namespace ME.Sdk.Library.Common.Http
+{
+    public class HttpHandler : IHttpHandler, IDisposable
 {
     private readonly HttpClient _client;
     private const string CorrelationHeader = "X-ME-CORRELATION-ID";
@@ -31,7 +33,7 @@ public class HttpHandler : IHttpHandler, IDisposable
             .Handle<HttpRequestException>()
             .OrResult<HttpResponseMessage>(r => r.StatusCode >= HttpStatusCode.InternalServerError)
             .WaitAndRetryAsync(settings.Retries, attempt => TimeSpan.FromSeconds(settings.SleepDurationInSeconds * attempt),
-                (exception, _, retryCount, _) =>
+                (exception, timeSpan, retryCount, context) =>
                 {
                     _logger.LogWarning(exception.Exception, "Attempt {retryCount} failed. Retrying again...",
                         retryCount);
@@ -67,7 +69,7 @@ public class HttpHandler : IHttpHandler, IDisposable
         if (!response.IsSuccessStatusCode)
             await HandleError(response, options.CancellationToken, _logger);
 
-        var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
+        var responseContent = response.Content.ReadAsStringAsync().Result;
         return JsonSerializer.Deserialize<TResponse>(responseContent,
             options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
     }
@@ -103,7 +105,7 @@ public class HttpHandler : IHttpHandler, IDisposable
         if (!response.IsSuccessStatusCode)
             await HandleError(response, options.CancellationToken, _logger);
 
-        var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
+        var responseContent = response.Content.ReadAsStringAsync().Result;
         return JsonSerializer.Deserialize<TResponse>(responseContent,
             options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
     }
@@ -112,7 +114,7 @@ public class HttpHandler : IHttpHandler, IDisposable
     {
         switch (response.StatusCode)
         {
-            case HttpStatusCode.TooManyRequests:
+            case (HttpStatusCode)429: // TooManyRequests
                 {
                     if (response.Headers.TryGetValues(RateLimitResetHeader, out var values))
                     {
@@ -130,7 +132,9 @@ public class HttpHandler : IHttpHandler, IDisposable
                 throw new UnauthorizedException("unauthorized");
         }
 
-        var error = await response.Content.ReadFromJsonAsync<HttpErrorResponse>(cancellationToken: cancellationToken);
+        var error = JsonSerializer.Deserialize<HttpErrorResponse>(
+            await response.Content.ReadAsStringAsync(),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         var message = error?.Detail ?? error?.Title ?? "Something went wrong.";
 
         throw response.StatusCode switch
@@ -146,4 +150,5 @@ public class HttpHandler : IHttpHandler, IDisposable
     {
         _client.Dispose();
     }
+}
 }

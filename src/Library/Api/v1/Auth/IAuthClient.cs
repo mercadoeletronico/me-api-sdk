@@ -1,8 +1,11 @@
 using ME.Sdk.Library.Api.v1.Auth.Response;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace ME.Sdk.Library.Api.v1.Auth;
-
-public interface IAuthClient
+namespace ME.Sdk.Library.Api.v1.Auth
 {
-    Task<GetTokenResponse> GetTokenAsync(CancellationToken cancellationToken);
+    public interface IAuthClient
+    {
+        Task<GetTokenResponse> GetTokenAsync(CancellationToken cancellationToken);
+    }
 }

@@ -1,7 +1,12 @@
-﻿namespace ME.Sdk.Library.Api.v1.User.Response;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class GetUserResponse
+namespace ME.Sdk.Library.Api.v1.User.Response
 {
+    public class GetUserResponse
+    {
     public int Id { get; set; }
     public string Name { get; set; }
     public string Login { get; set; }
@@ -14,4 +19,5 @@ public class GetUserResponse
     public string IntegrationTag { get; set; }
     public bool isDeactivated { get; set; }
     public int LanguageId { get; set; }
+}
 }

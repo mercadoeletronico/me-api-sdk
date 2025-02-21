@@ -1,5 +1,7 @@
-﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request;
+﻿using System.Collections.Generic;
 
+namespace ME.Sdk.Library.Api.v1.Ledger.Request
+{
 public class UpdateLedgerRequest
 {
     public string? Description { get; set; }
@@ -12,4 +14,5 @@ public class UpdateLedgerRequest
     public List<UpdateLedgerBusinessOrganizationRequest>? BusinessOrganizations { get; set; }
     public List<UpdateLedgerCostCenterRequest>? CostCenters { get; set; }
     public List<UpdateLedgerServiceOrderRequest>? ServiceOrders { get; set; }
+}
 }

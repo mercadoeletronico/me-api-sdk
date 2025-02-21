@@ -1,7 +1,8 @@
-namespace ME.Sdk.Library.Api.v1.Auth.Response;
-
-public class GetTokenResponse
+namespace ME.Sdk.Library.Api.v1.Auth.Response
 {
-    public string AccessToken { get; set; }
-    public int ExpiresIn { get; set; }
+    public class GetTokenResponse
+    {
+        public string AccessToken { get; set; }
+        public int ExpiresIn { get; set; }
+    }
 }

@@ -1,7 +1,10 @@
-namespace ME.Sdk.Library.Api.v1.DecisionTable.Request;
+using System.Collections.Generic;
 
-public class DeleteDecisionTableRequest
+namespace ME.Sdk.Library.Api.v1.DecisionTable.Request
 {
-    public string TableName { get; set; }
-    public List<TableRow> TableRows { get; set; } = new();
+    public class DeleteDecisionTableRequest
+    {
+        public string TableName { get; set; }
+        public List<TableRow> TableRows { get; set; } = new List<TableRow>();
+    }
 }

@@ -1,3 +1,14 @@
-namespace ME.Sdk.Library.Common.Model;
+namespace ME.Sdk.Library.Common.Model
+{
+    public class HttpErrorResponse
+    {
+        public string Title { get; set; }
+        public string? Detail { get; set; }
 
-public record HttpErrorResponse(string Title, string? Detail);
+        public HttpErrorResponse(string title, string? detail)
+        {
+            Title = title;
+            Detail = detail;
+        }
+    }
+}

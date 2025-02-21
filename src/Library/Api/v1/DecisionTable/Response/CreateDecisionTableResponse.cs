@@ -1,6 +1,7 @@
-namespace ME.Sdk.Library.Api.v1.DecisionTable.Response;
-
-public class CreateDecisionTableResponse
+namespace ME.Sdk.Library.Api.v1.DecisionTable.Response
 {
-    public string CorrelationId { get; set; }
+    public class CreateDecisionTableResponse
+    {
+        public string CorrelationId { get; set; }
+    }
 }

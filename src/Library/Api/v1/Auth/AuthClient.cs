@@ -1,11 +1,14 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using ME.Sdk.Library.Api.v1.Auth.Request;
 using ME.Sdk.Library.Api.v1.Auth.Response;
 using ME.Sdk.Library.Common.Http;
 
-namespace ME.Sdk.Library.Api.v1.Auth;
-
-public class AuthClient : IAuthClient
+namespace ME.Sdk.Library.Api.v1.Auth
 {
+    public class AuthClient : IAuthClient
+    {
     private DateTime? _expiration;
     private GetTokenResponse? _cache;
     private readonly IHttpHandler _httpHandler;
@@ -29,4 +32,4 @@ public class AuthClient : IAuthClient
         _expiration = DateTime.Now.AddSeconds(token.ExpiresIn - 30);
         return token;
     }
-}
+}}

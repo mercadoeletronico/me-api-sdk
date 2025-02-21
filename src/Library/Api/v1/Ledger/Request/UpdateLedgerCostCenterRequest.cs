@@ -1,6 +1,7 @@
-﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request;
-
-public class UpdateLedgerCostCenterRequest
+﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
-    public string CostCenter { get; set; }
+    public class UpdateLedgerCostCenterRequest
+    {
+        public string CostCenter { get; set; }
+    }
 }

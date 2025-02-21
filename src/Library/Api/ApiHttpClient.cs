@@ -1,10 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using ME.Sdk.Library.Api.v1.Auth;
 using ME.Sdk.Library.Common.Exceptions;
 using ME.Sdk.Library.Common.Http;
 using ME.Sdk.Library.Common.Model;
 
-namespace ME.Sdk.Library.Api;
-
+namespace ME.Sdk.Library.Api
+{
 public class ApiHttpClient : IApiHttpClient
 {
     private readonly IHttpHandler _httpHandler;
@@ -114,4 +118,5 @@ public class ApiHttpClient : IApiHttpClient
             return await body();
         }
     }
+}
 }

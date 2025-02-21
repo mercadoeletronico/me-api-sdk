@@ -1,6 +1,7 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Response;
-
-public class ApprovePreRequestResponse
+namespace ME.Sdk.Library.Api.v1.PreRequest.Response
 {
-    public string CorrelationId { get; set; }
+    public class ApprovePreRequestResponse
+    {
+        public string CorrelationId { get; set; }
+    }
 }

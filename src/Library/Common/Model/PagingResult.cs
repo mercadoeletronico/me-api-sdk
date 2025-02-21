@@ -1,6 +1,9 @@
-﻿namespace ME.Sdk.Library.Common.Model;
+﻿using System.Collections.Generic;
 
-public class PagingResult<T>
+namespace ME.Sdk.Library.Common.Model
 {
-    public IList<T> Data { get; set; }
+    public class PagingResult<T>
+    {
+        public IList<T> Data { get; set; }
+    }
 }

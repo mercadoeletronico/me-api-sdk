@@ -9,8 +9,8 @@ using ME.Sdk.Library.Api.v1.PreRequest;
 using ME.Sdk.Library.Api.v1.User;
 using ME.Sdk.Library.Common.Http;
 
-namespace ME.Sdk.Library;
-
+namespace ME.Sdk.Library
+{
 public class MEApiClient : IMEApiClient
 {
     public IAuthClient AuthClient { get; }
@@ -35,4 +35,5 @@ public class MEApiClient : IMEApiClient
         UserClient = new UserClient(apiClient);
         LedgerClient = new LedgerClient(apiClient);
     }
+}
 }

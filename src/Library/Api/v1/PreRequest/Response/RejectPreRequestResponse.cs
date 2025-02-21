@@ -1,6 +1,12 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class RejectPreRequestResponse
+namespace ME.Sdk.Library.Api.v1.PreRequest.Response
 {
-    public string CorrelationId { get; set; }
+    public class RejectPreRequestResponse
+    {
+        public string CorrelationId { get; set; }
+    }
 }

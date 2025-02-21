@@ -1,10 +1,13 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Request;
+using System.Collections.Generic;
 
-public class RejectPreRequestRequest
+namespace ME.Sdk.Library.Api.v1.PreRequest.Request
 {
-    public string PreRequestId { get; set; }
-    public string Title { get; set; }
-    public string CustomerDeliveryLocationId { get; set; }
-    public List<RejectPreRequestBusinessOrganizationRequest> BusinessOrganizations { get; set; }
-    public List<RejectPreRequestItemRequest> Items { get; set; }
+    public class RejectPreRequestRequest
+    {
+        public string PreRequestId { get; set; }
+        public string Title { get; set; }
+        public string CustomerDeliveryLocationId { get; set; }
+        public List<RejectPreRequestBusinessOrganizationRequest> BusinessOrganizations { get; set; }
+        public List<RejectPreRequestItemRequest> Items { get; set; }
+    }
 }

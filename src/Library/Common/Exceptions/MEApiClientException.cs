@@ -1,8 +1,11 @@
-namespace ME.Sdk.Library.Common.Exceptions;
+using System;
 
-public class MEApiClientException : Exception
+namespace ME.Sdk.Library.Common.Exceptions
 {
-    public MEApiClientException(string? message) : base(message)
+    public class MEApiClientException : Exception
     {
+        public MEApiClientException(string? message) : base(message)
+        {
+        }
     }
 }

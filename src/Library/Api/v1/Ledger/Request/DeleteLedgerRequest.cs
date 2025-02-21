@@ -1,4 +1,6 @@
-﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
+﻿using System.Collections.Generic;
+
+namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
     public class DeleteLedgerRequest
     {

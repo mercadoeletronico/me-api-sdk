@@ -1,6 +1,7 @@
-﻿namespace ME.Sdk.Library.Api.v1.Bills.Response;
-
-public class BulkInsertAccountsPayableResponse
+﻿namespace ME.Sdk.Library.Api.v1.Bills.Response
 {
-    public string CorrelationId { get; set; }
+    public class BulkInsertAccountsPayableResponse
+    {
+        public string CorrelationId { get; set; }
+    }
 }

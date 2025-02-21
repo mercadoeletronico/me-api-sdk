@@ -1,8 +1,11 @@
-namespace ME.Sdk.Library.Common.Exceptions;
+using System;
 
-public class NotFoundException : MEApiClientException
+namespace ME.Sdk.Library.Common.Exceptions
 {
-    public NotFoundException(string? message) : base(message)
+    public class NotFoundException : MEApiClientException
     {
+        public NotFoundException(string? message) : base(message)
+        {
+        }
     }
 }

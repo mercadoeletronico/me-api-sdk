@@ -1,6 +1,7 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Request;
-
-public class GetPreRequestRequest
+namespace ME.Sdk.Library.Api.v1.PreRequest.Request
 {
-    public string PreRequestId { get; set; }
+    public class GetPreRequestRequest
+    {
+        public string PreRequestId { get; set; }
+    }
 }

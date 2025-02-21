@@ -1,9 +1,22 @@
-namespace ME.Sdk.Library.Api.v1.DecisionTable.Request;
+using System.Collections.Generic;
 
-public class CreateDecisionTableRequest
+namespace ME.Sdk.Library.Api.v1.DecisionTable.Request
 {
-    public string TableName { get; set; }
-    public List<TableRow> TableRows { get; set; } = new();
-}
+    public class CreateDecisionTableRequest
+    {
+        public string TableName { get; set; }
+        public List<TableRow> TableRows { get; set; } = new List<TableRow>();
+    }
 
-public record TableRow(string ColumnName, string Value);
+    public class TableRow
+    {
+        public string ColumnName { get; set; }
+        public string Value { get; set; }
+
+        public TableRow(string columnName, string value)
+        {
+            ColumnName = columnName;
+            Value = value;
+        }
+    }
+}

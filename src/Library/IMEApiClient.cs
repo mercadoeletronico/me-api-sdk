@@ -7,12 +7,12 @@ using ME.Sdk.Library.Api.v1.PreOrder;
 using ME.Sdk.Library.Api.v1.PreRequest;
 using ME.Sdk.Library.Api.v1.User;
 
-namespace ME.Sdk.Library;
-
-/// <summary>
-/// Provides clients for accessing Mercado Eletrônico APIs. 
-/// For more information, see the <see href="https://developer.me.com.br/">documentation</see>.
-/// </summary>
+namespace ME.Sdk.Library
+{
+    /// <summary>
+    /// Provides clients for accessing Mercado Eletrônico APIs. 
+    /// For more information, see the <see href="https://developer.me.com.br/">documentation</see>.
+    /// </summary>
 public interface IMEApiClient
 {
     /// <summary>
@@ -62,4 +62,5 @@ public interface IMEApiClient
     /// <see href="https://developer.me.com.br/api/me-integration-ledger-api_v1_ledgers_get">Ledger API documentation</see>.
     /// </summary>
     public ILedgerClient LedgerClient { get; }
+    }
 }

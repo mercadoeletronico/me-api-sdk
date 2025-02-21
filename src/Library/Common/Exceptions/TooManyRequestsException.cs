@@ -1,10 +1,13 @@
-namespace ME.Sdk.Library.Common.Exceptions;
+using System;
 
-public class TooManyRequestsException : MEApiClientException
+namespace ME.Sdk.Library.Common.Exceptions
 {
-    public int ResetInSeconds { get; set; }
-    public TooManyRequestsException(string? message, int resetInSeconds) : base(message)
+    public class TooManyRequestsException : MEApiClientException
     {
-        ResetInSeconds = resetInSeconds;
+        public int ResetInSeconds { get; set; }
+        public TooManyRequestsException(string? message, int resetInSeconds) : base(message)
+        {
+            ResetInSeconds = resetInSeconds;
+        }
     }
 }

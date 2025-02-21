@@ -1,6 +1,7 @@
-﻿namespace ME.Sdk.Library.Api.v1.User.Request;
-
-public class GetUserBusinessOrganizationsRequest
+﻿namespace ME.Sdk.Library.Api.v1.User.Request
 {
-    public int UserId { get; set; }
+    public class GetUserBusinessOrganizationsRequest
+    {
+        public int UserId { get; set; }
+    }
 }

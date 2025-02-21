@@ -1,11 +1,13 @@
 ﻿using ME.Sdk.Library.Api.v1.Bills.Request;
 using ME.Sdk.Library.Api.v1.Bills.Response;
 using ME.Sdk.Library.Common.Model;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace ME.Sdk.Library.Api.v1.Bills;
-
-public class BillsClient : IBillsClient
+namespace ME.Sdk.Library.Api.v1.Bills
 {
+    public class BillsClient : IBillsClient
+    {
     private readonly IApiHttpClient _httpClient;
 
     public BillsClient(IApiHttpClient httpClient)
@@ -17,4 +19,5 @@ public class BillsClient : IBillsClient
     {
         return await _httpClient.PostAsync<BulkInsertAccountsPayableResponse>($"/v1/bills/accounts-payable/bulk",new MultiPartUpload(request.FileStream, request.FileName), correlationId, cancellationToken);
     }
+}
 }

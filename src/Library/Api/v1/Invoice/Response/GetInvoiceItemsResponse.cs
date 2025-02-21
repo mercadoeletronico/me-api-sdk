@@ -1,10 +1,16 @@
-﻿namespace ME.Sdk.Library.Api.v1.Invoice.Response;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class GetInvoiceItemsResponse
+namespace ME.Sdk.Library.Api.v1.Invoice.Response
 {
-    public int InvoiceItemId { get; set; }
-    public double? Quantity { get; set; }
-    public double? Price { get; set; }
-    public double? TotalNetPrice { get; set; }
-    public string? Description { get; set; }
+    public class GetInvoiceItemsResponse
+    {
+        public int InvoiceItemId { get; set; }
+        public double? Quantity { get; set; }
+        public double? Price { get; set; }
+        public double? TotalNetPrice { get; set; }
+        public string? Description { get; set; }
+    }
 }
