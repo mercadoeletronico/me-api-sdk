@@ -24,6 +24,6 @@ public class DecisionTableClient : IDecisionTableClient
 
     public async Task<IList<GetDecisionTableResponse>> GetAsync(GetDecisionTableRequest request, CancellationToken cancellationToken)
     {
-        return await _httpClient.GetPagingResultAsync<GetDecisionTableResponse>($"/v1/decision-table?tableName={request.TableName}", cancellationToken);
+        return await _httpClient.GetPagingResultAsync<GetDecisionTableResponse>($"/v1/decision-table/{request.TableName}/rows", cancellationToken);
     } 
 }
