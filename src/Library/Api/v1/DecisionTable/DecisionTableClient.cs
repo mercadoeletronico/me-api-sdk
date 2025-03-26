@@ -21,4 +21,9 @@ public class DecisionTableClient : IDecisionTableClient
     {
         return await _httpClient.DeleteAsync<DeleteDecisionTableResponse>($"/v1/decision-table", request, correlationId, cancellationToken);
     }
+
+    public async Task<IList<GetDecisionTableResponse>> GetAsync(GetDecisionTableRequest request, CancellationToken cancellationToken)
+    {
+        return await _httpClient.GetPagingResultAsync<GetDecisionTableResponse>($"/v1/decision-table?tableName={request.TableName}", cancellationToken);
+    } 
 }
