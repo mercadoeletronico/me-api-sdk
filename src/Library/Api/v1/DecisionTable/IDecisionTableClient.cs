@@ -7,4 +7,5 @@ public interface IDecisionTableClient
 {
     Task<CreateDecisionTableResponse> CreateAsync(CreateDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken);
     Task<DeleteDecisionTableResponse> DeleteAsync(DeleteDecisionTableRequest request, string? correlationId, CancellationToken cancellationToken);
+    Task<IList<GetDecisionTableResponse>> GetAsync(GetDecisionTableRequest request, CancellationToken cancellationToken);
 }
