@@ -1,6 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http.Headers;
+#if NET6_0_OR_GREATER
 using System.Net.Http.Json;
+#endif
 using System.Text;
 using System.Text.Json;
 
@@ -13,127 +22,134 @@ using Polly;
 using Polly.Retry;
 
 namespace ME.Sdk.Library.Common.Http
-    {
+{
     public class HttpHandler : IHttpHandler, IDisposable
     {
-    private readonly HttpClient _client;
-    private const string CorrelationHeader = "X-ME-CORRELATION-ID";
-    private const string RateLimitResetHeader = "RateLimit-Reset";
-    private readonly ILogger<HttpHandler> _logger;
-    private readonly AsyncRetryPolicy<HttpResponseMessage> _policy;
+        private readonly HttpClient _client;
+        private const string CorrelationHeader = "X-ME-CORRELATION-ID";
+        private const string RateLimitResetHeader = "RateLimit-Reset";
+        private readonly ILogger<HttpHandler> _logger;
+        private readonly AsyncRetryPolicy<HttpResponseMessage> _policy;
 
-    public HttpHandler(MEApiSettings settings)
+        public HttpHandler(MEApiSettings settings)
         {
-        _logger = new LoggerFactory().CreateLogger<HttpHandler>();
-        _client = new HttpClient {BaseAddress = new Uri(settings.BaseAddress)};
-        _client.DefaultRequestHeaders.Add("User-Agent", "ME-SDK");
-        _policy = Policy
-            .Handle<HttpRequestException>()
-            .OrResult<HttpResponseMessage>(r => r.StatusCode >= HttpStatusCode.InternalServerError)
-            .WaitAndRetryAsync(settings.Retries, attempt => TimeSpan.FromSeconds(settings.SleepDurationInSeconds * attempt),
-                (exception, _, retryCount, _) =>
+            _logger = new LoggerFactory().CreateLogger<HttpHandler>();
+            _client = new HttpClient {BaseAddress = new Uri(settings.BaseAddress)};
+            _client.DefaultRequestHeaders.Add("User-Agent", "ME-SDK");
+            _policy = Policy
+                .Handle<HttpRequestException>()
+                .OrResult<HttpResponseMessage>(r => r.StatusCode >= HttpStatusCode.InternalServerError)
+                .WaitAndRetryAsync(settings.Retries, attempt => TimeSpan.FromSeconds(settings.SleepDurationInSeconds * attempt),
+                    (exception, timeSpan, retryCount, context) =>
                     {
-                    _logger.LogWarning(exception.Exception, "Attempt {retryCount} failed. Retrying again...",
-                        retryCount);
-                });
-    }
+                        _logger.LogWarning(exception.Exception, "Attempt {retryCount} failed. Retrying again...",
+                            retryCount);
+                    });
+        }
 
-    public Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
+        public Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
         {
-        return SendAsync<TResponse>(HttpMethod.Post, endpoint, payload, options);
-    }
+            return SendAsync<TResponse>(HttpMethod.Post, endpoint, payload, options);
+        }
 
-    public Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
+        public Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
         {
-        return SendAsync<TResponse>(HttpMethod.Put, endpoint, payload, options);
-    }
+            return SendAsync<TResponse>(HttpMethod.Put, endpoint, payload, options);
+        }
 
-    public Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
+        public Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
         {
-        return SendAsync<TResponse>(HttpMethod.Delete, endpoint, payload, options);
-    }
+            return SendAsync<TResponse>(HttpMethod.Delete, endpoint, payload, options);
+        }
 
-    public async Task<TResponse> GetAsync<TResponse>(string endpoint, HttpHandlerOptions options)
+        public async Task<TResponse> GetAsync<TResponse>(string endpoint, HttpHandlerOptions options)
         {
-        var response = await _policy.ExecuteAsync(() =>
+            var response = await _policy.ExecuteAsync(() =>
             {
-            var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
-            if (!string.IsNullOrEmpty(options.BearerToken))
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
-            if (!string.IsNullOrEmpty(options.CorrelationId))
-                request.Headers.Add(CorrelationHeader, options.CorrelationId);            
-            return _client.SendAsync(request, options.CancellationToken);
-        });
-        if (!response.IsSuccessStatusCode)
-            await HandleError(response, options.CancellationToken, _logger);
+                var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+                if (!string.IsNullOrEmpty(options.BearerToken))
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+                if (!string.IsNullOrEmpty(options.CorrelationId))
+                    request.Headers.Add(CorrelationHeader, options.CorrelationId);            
+                return _client.SendAsync(request, options.CancellationToken);
+            });
+            if (!response.IsSuccessStatusCode)
+                await HandleError(response, options.CancellationToken, _logger);
 
-        var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
 #if NET6_0_OR_GREATER
-        return JsonSerializer.Deserialize<TResponse>(responseContent,
-            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
+            var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
 #else
-        var result = JsonSerializer.Deserialize<TResponse>(responseContent,
-            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
-        if (result == null)
-            throw new InvalidOperationException("Failed to deserialize response");
-        return result;
+            var responseContent = response.Content.ReadAsStringAsync().Result;
 #endif
-    }
-
-    private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, string endpoint, object payload,
-        HttpHandlerOptions options)
-        {
-
-        var response = await _policy.ExecuteAsync(() =>
-            {
-            var request = new HttpRequestMessage(method, endpoint);
-            if (payload is MultiPartUpload multiPart)
-                {
-                var fileContent = new StreamContent(multiPart.Stream);
-                fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
-                request.Content = new MultipartFormDataContent {{fileContent, multiPart.Name, multiPart.FileName};
-            }
-            else
-                {
-                request.Content = new StringContent(
-                    JsonSerializer.Serialize(payload,
-                        options: new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase}),
-                    Encoding.UTF8, "application/json");
-            }
-
-            if (!string.IsNullOrEmpty(options.BearerToken))
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
-            if (!string.IsNullOrEmpty(options.CorrelationId))
-                request.Headers.Add(CorrelationHeader, options.CorrelationId);
-
-            return _client.SendAsync(request, options.CancellationToken);
-        });
-        if (!response.IsSuccessStatusCode)
-            await HandleError(response, options.CancellationToken, _logger);
-
-        var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
 #if NET6_0_OR_GREATER
-        return JsonSerializer.Deserialize<TResponse>(responseContent,
-            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
+            return JsonSerializer.Deserialize<TResponse>(responseContent,
+                options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
 #else
-        var result = JsonSerializer.Deserialize<TResponse>(responseContent,
-            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
-        if (result == null)
-            throw new InvalidOperationException("Failed to deserialize response");
-        return result;
+            var result = JsonSerializer.Deserialize<TResponse>(responseContent,
+                options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
+            if (result == null)
+                throw new InvalidOperationException("Failed to deserialize response");
+            return result;
 #endif
-    }
+        }
 
-    private static async Task HandleError(HttpResponseMessage response, CancellationToken cancellationToken, ILogger logger)
+        private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, string endpoint, object payload,
+            HttpHandlerOptions options)
         {
-        switch (response.StatusCode)
+            var response = await _policy.ExecuteAsync(() =>
             {
-            case HttpStatusCode.TooManyRequests:
-                    {
+                var request = new HttpRequestMessage(method, endpoint);
+                if (payload is MultiPartUpload multiPart)
+                {
+                    var fileContent = new StreamContent(multiPart.Stream);
+                    fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+                    request.Content = new MultipartFormDataContent {{fileContent, multiPart.Name, multiPart.FileName}};
+                }
+                else
+                {
+                    request.Content = new StringContent(
+                        JsonSerializer.Serialize(payload,
+                            options: new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase}),
+                        Encoding.UTF8, "application/json");
+                }
+
+                if (!string.IsNullOrEmpty(options.BearerToken))
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+                if (!string.IsNullOrEmpty(options.CorrelationId))
+                    request.Headers.Add(CorrelationHeader, options.CorrelationId);
+
+                return _client.SendAsync(request, options.CancellationToken);
+            });
+            if (!response.IsSuccessStatusCode)
+                await HandleError(response, options.CancellationToken, _logger);
+
+#if NET6_0_OR_GREATER
+            var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
+#else
+            var responseContent = response.Content.ReadAsStringAsync().Result;
+#endif
+#if NET6_0_OR_GREATER
+            return JsonSerializer.Deserialize<TResponse>(responseContent,
+                options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
+#else
+            var result = JsonSerializer.Deserialize<TResponse>(responseContent,
+                options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
+            if (result == null)
+                throw new InvalidOperationException("Failed to deserialize response");
+            return result;
+#endif
+        }
+
+        private static async Task HandleError(HttpResponseMessage response, CancellationToken cancellationToken, ILogger logger)
+        {
+            switch (response.StatusCode)
+            {
+                case (HttpStatusCode)429: // TooManyRequests
+                {
                     if (response.Headers.TryGetValues(RateLimitResetHeader, out var values))
-                        {
+                    {
                         if (int.TryParse(values.First(), out int reset))
-                            {
+                        {
                             logger.LogWarning("Too many requests, waiting for {Seconds} seconds", reset);
                             throw new TooManyRequestsException("too many exception", reset);
                         }
@@ -142,31 +158,31 @@ namespace ME.Sdk.Library.Common.Http
                     throw new TooManyRequestsException("too many exception", -1);
                 }
 
-            case HttpStatusCode.Unauthorized:
-                throw new UnauthorizedException("unauthorized");
-        }
+                case HttpStatusCode.Unauthorized:
+                    throw new UnauthorizedException("unauthorized");
+            }
 
 #if NET6_0_OR_GREATER
-        var error = await response.Content.ReadFromJsonAsync<HttpErrorResponse>(cancellationToken: cancellationToken);
+            var error = await response.Content.ReadFromJsonAsync<HttpErrorResponse>(cancellationToken: cancellationToken);
 #else
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var error = JsonSerializer.Deserialize<HttpErrorResponse>(responseContent, 
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var error = JsonSerializer.Deserialize<HttpErrorResponse>(responseContent, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #endif
-        var message = error?.Detail ?? error?.Title ?? "Something went wrong.";
+            var message = error?.Detail ?? error?.Title ?? "Something went wrong.";
 
-        throw response.StatusCode switch
+            throw response.StatusCode switch
             {
-            HttpStatusCode.NotFound => new NotFoundException(message),
-            HttpStatusCode.BadRequest => new BadRequestException(message),
-            HttpStatusCode.Forbidden => new ForbiddenException(message),
-            _ => new MEApiClientException(message)
-        };
-    }
+                HttpStatusCode.NotFound => new NotFoundException(message),
+                HttpStatusCode.BadRequest => new BadRequestException(message),
+                HttpStatusCode.Forbidden => new ForbiddenException(message),
+                _ => new MEApiClientException(message)
+            };
+        }
 
-    public void Dispose()
+        public void Dispose()
         {
-        _client.Dispose();
+            _client.Dispose();
+        }
     }
-}
 }
