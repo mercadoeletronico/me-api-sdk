@@ -8,13 +8,13 @@ using ME.Sdk.Library.Api.v1.PreRequest;
 using ME.Sdk.Library.Api.v1.User;
 
 namespace ME.Sdk.Library
-{
+    {
     /// <summary>
     /// Provides clients for accessing Mercado Eletrônico APIs. 
 /// For more information, see the <see href="https://developer.me.com.br/">documentation</see>.
 /// </summary>
     public interface IMEApiClient
-{
+    {
     /// <summary>
     /// Client for managing authentication and token generation.
     /// <see href="https://developer.me.com.br/api/meweb-auth-api_v1_auth_tokens_post">Auth API documentation</see>.

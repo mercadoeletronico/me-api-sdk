@@ -13,9 +13,9 @@ using Polly;
 using Polly.Retry;
 
 namespace ME.Sdk.Library.Common.Http
-{
+    {
     public class HttpHandler : IHttpHandler, IDisposable
-{
+    {
     private readonly HttpClient _client;
     private const string CorrelationHeader = "X-ME-CORRELATION-ID";
     private const string RateLimitResetHeader = "RateLimit-Reset";
@@ -23,7 +23,7 @@ namespace ME.Sdk.Library.Common.Http
     private readonly AsyncRetryPolicy<HttpResponseMessage> _policy;
 
     public HttpHandler(MEApiSettings settings)
-    {
+        {
         _logger = new LoggerFactory().CreateLogger<HttpHandler>();
         _client = new HttpClient {BaseAddress = new Uri(settings.BaseAddress)};
         _client.DefaultRequestHeaders.Add("User-Agent", "ME-SDK");
@@ -32,31 +32,31 @@ namespace ME.Sdk.Library.Common.Http
             .OrResult<HttpResponseMessage>(r => r.StatusCode >= HttpStatusCode.InternalServerError)
             .WaitAndRetryAsync(settings.Retries, attempt => TimeSpan.FromSeconds(settings.SleepDurationInSeconds * attempt),
                 (exception, _, retryCount, _) =>
-                {
+                    {
                     _logger.LogWarning(exception.Exception, "Attempt {retryCount} failed. Retrying again...",
                         retryCount);
                 });
     }
 
     public Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
-    {
+        {
         return SendAsync<TResponse>(HttpMethod.Post, endpoint, payload, options);
     }
 
     public Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
-    {
+        {
         return SendAsync<TResponse>(HttpMethod.Put, endpoint, payload, options);
     }
 
     public Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options)
-    {
+        {
         return SendAsync<TResponse>(HttpMethod.Delete, endpoint, payload, options);
     }
 
     public async Task<TResponse> GetAsync<TResponse>(string endpoint, HttpHandlerOptions options)
-    {
-        var response = await _policy.ExecuteAsync(() =>
         {
+        var response = await _policy.ExecuteAsync(() =>
+            {
             var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
             if (!string.IsNullOrEmpty(options.BearerToken))
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
@@ -82,19 +82,19 @@ namespace ME.Sdk.Library.Common.Http
 
     private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, string endpoint, object payload,
         HttpHandlerOptions options)
-    {
+        {
 
         var response = await _policy.ExecuteAsync(() =>
-        {
+            {
             var request = new HttpRequestMessage(method, endpoint);
             if (payload is MultiPartUpload multiPart)
-            {
+                {
                 var fileContent = new StreamContent(multiPart.Stream);
                 fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
                 request.Content = new MultipartFormDataContent {{fileContent, multiPart.Name, multiPart.FileName};
             }
             else
-            {
+                {
                 request.Content = new StringContent(
                     JsonSerializer.Serialize(payload,
                         options: new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase}),
@@ -125,15 +125,15 @@ namespace ME.Sdk.Library.Common.Http
     }
 
     private static async Task HandleError(HttpResponseMessage response, CancellationToken cancellationToken, ILogger logger)
-    {
-        switch (response.StatusCode)
         {
+        switch (response.StatusCode)
+            {
             case HttpStatusCode.TooManyRequests:
-                {
-                    if (response.Headers.TryGetValues(RateLimitResetHeader, out var values))
                     {
-                        if (int.TryParse(values.First(), out int reset))
+                    if (response.Headers.TryGetValues(RateLimitResetHeader, out var values))
                         {
+                        if (int.TryParse(values.First(), out int reset))
+                            {
                             logger.LogWarning("Too many requests, waiting for {Seconds} seconds", reset);
                             throw new TooManyRequestsException("too many exception", reset);
                         }
@@ -156,7 +156,7 @@ namespace ME.Sdk.Library.Common.Http
         var message = error?.Detail ?? error?.Title ?? "Something went wrong.";
 
         throw response.StatusCode switch
-        {
+            {
             HttpStatusCode.NotFound => new NotFoundException(message),
             HttpStatusCode.BadRequest => new BadRequestException(message),
             HttpStatusCode.Forbidden => new ForbiddenException(message),
@@ -165,7 +165,7 @@ namespace ME.Sdk.Library.Common.Http
     }
 
     public void Dispose()
-    {
+        {
         _client.Dispose();
     }
 }

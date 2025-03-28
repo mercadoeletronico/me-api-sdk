@@ -10,10 +10,10 @@ using ME.Sdk.Library.Api.v1.User;
 using ME.Sdk.Library.Common.Http;
 
 namespace ME.Sdk.Library
-{
+    {
 
     public class MEApiClient : IMEApiClient
-{
+    {
     public IAuthClient AuthClient { get; }
     public IPreOrderClient PreOrderClient { get; }
     public IDecisionTableClient DecisionTableClient { get; }
@@ -25,7 +25,7 @@ namespace ME.Sdk.Library
 }
 
     public MEApiClient(MEApiSettings settings)
-    {
+        {
         var httpHandler = new HttpHandler(settings);
         AuthClient = new AuthClient(settings, httpHandler);
         var apiClient = new ApiHttpClient(httpHandler, AuthClient);

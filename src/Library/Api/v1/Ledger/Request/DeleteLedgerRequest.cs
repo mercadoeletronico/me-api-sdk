@@ -1,7 +1,7 @@
 ﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
-{
-    public class DeleteLedgerRequest
     {
+    public class DeleteLedgerRequest
+        {
         public bool? AreAllBusinessOrganizationsIncluded { get; set; }
         public bool? AreAllCostCentersIncluded { get; set; }
         public bool? AreAllServiceOrdersIncluded { get; set; }

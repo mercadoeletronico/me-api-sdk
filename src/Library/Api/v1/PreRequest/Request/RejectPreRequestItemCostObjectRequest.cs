@@ -1,7 +1,7 @@
 namespace ME.Sdk.Library.Api.v1.PreRequest.Request
-{
+    {
     public class RejectPreRequestItemCostObjectRequest
-{
+    {
     public int Index { get; set; }
     public string Quantity { get; set; }
     public string PercentageAmount { get; set; }

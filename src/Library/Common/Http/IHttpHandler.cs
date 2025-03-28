@@ -1,8 +1,8 @@
 namespace ME.Sdk.Library.Common.Http
-{
+    {
 
     public interface IHttpHandler
-{
+    {
     Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
     Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
     Task<TResponse> GetAsync<TResponse>(string endpoint, HttpHandlerOptions options);
@@ -11,7 +11,7 @@ namespace ME.Sdk.Library.Common.Http
 }
 
     public sealed class HttpHandlerOptions
-{
+    {
 #if NET6_0_OR_GREATER
     public string? BearerToken { get; set; }
     public string? CorrelationId { get; set; }

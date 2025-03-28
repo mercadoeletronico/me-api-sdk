@@ -4,14 +4,14 @@ using ME.Sdk.Library.Common.Http;
 using ME.Sdk.Library.Common.Model;
 
 namespace ME.Sdk.Library.Api
-{
-    public class ApiHttpClient : IApiHttpClient
     {
+    public class ApiHttpClient : IApiHttpClient
+        {
     private readonly IHttpHandler _httpHandler;
     private readonly IAuthClient _authClient;
 
     public ApiHttpClient(IHttpHandler httpHandler, IAuthClient authClient)
-    {
+        {
         _httpHandler = httpHandler;
         _authClient = authClient;
     }
@@ -23,13 +23,13 @@ namespace ME.Sdk.Library.Api
         string correlationId,
 #endif
         CancellationToken cancellationToken)
-    {
-        return await Execute(async () =>
         {
+        return await Execute(async () =>
+            {
             var bearer = await _authClient.GetTokenAsync(cancellationToken);
             return await _httpHandler.PostAsync<TResponse>(endpoint, payload,
                 new HttpHandlerOptions
-                {
+                    {
                     BearerToken = bearer.AccessToken,
                     CorrelationId = correlationId,
                     CancellationToken = cancellationToken
@@ -44,13 +44,13 @@ namespace ME.Sdk.Library.Api
         string correlationId,
 #endif
         CancellationToken cancellationToken)
-    {
-        return await Execute(async () =>
         {
+        return await Execute(async () =>
+            {
             var bearer = await _authClient.GetTokenAsync(cancellationToken);
             return await _httpHandler.DeleteAsync<TResponse>(endpoint, payload,
                 new HttpHandlerOptions
-                {
+                    {
                     BearerToken = bearer.AccessToken,
                     CorrelationId = correlationId,
                     CancellationToken = cancellationToken
@@ -59,9 +59,9 @@ namespace ME.Sdk.Library.Api
     }
 
     public async Task<TResponse> GetAsync<TResponse>(string endpoint, CancellationToken cancellationToken)
-    {
-        return await Execute(async () =>
         {
+        return await Execute(async () =>
+            {
             var bearer = await _authClient.GetTokenAsync(cancellationToken);
             return await _httpHandler.GetAsync<TResponse>(endpoint,
                 new HttpHandlerOptions { BearerToken = bearer.AccessToken, CancellationToken = cancellationToken });
@@ -69,14 +69,14 @@ namespace ME.Sdk.Library.Api
     }
 
     public async Task<IList<TResponse>> GetPagingResultAsync<TResponse>(string endpoint, CancellationToken cancellationToken)
-    {
+        {
         var collection = new List<TResponse>();
         var pageNumber = 1;
         IList<TResponse> page;
         do
-        {
-            page = await Execute(async () =>
             {
+            page = await Execute(async () =>
+                {
                 var bearer = await _authClient.GetTokenAsync(cancellationToken);
                 var response = await _httpHandler.GetAsync<PagingResult<TResponse>>(
                     $"{endpoint}?pageNumber={pageNumber}&pageSize=100",
@@ -97,13 +97,13 @@ namespace ME.Sdk.Library.Api
         string correlationId,
 #endif
         CancellationToken cancellationToken)
-    {
-        return await Execute(async () =>
         {
+        return await Execute(async () =>
+            {
             var bearer = await _authClient.GetTokenAsync(cancellationToken);
             return await _httpHandler.PutAsync<TResponse>(endpoint, payload,
                 new HttpHandlerOptions
-                {
+                    {
                     BearerToken = bearer.AccessToken,
                     CorrelationId = correlationId,
                     CancellationToken = cancellationToken
@@ -112,16 +112,16 @@ namespace ME.Sdk.Library.Api
     }
 
     private static async Task<T> Execute<T>(Func<Task<T>> body, CancellationToken cancellationToken)
-    {
-        try
         {
+        try
+            {
             var data = await body();
             return data;
         }
         catch (TooManyRequestsException e)
-        {
-            if (e.ResetInSeconds < 0)
             {
+            if (e.ResetInSeconds < 0)
+                {
                 throw;
             }
 

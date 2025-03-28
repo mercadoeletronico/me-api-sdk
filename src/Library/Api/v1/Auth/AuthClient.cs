@@ -3,23 +3,23 @@ using ME.Sdk.Library.Api.v1.Auth.Response;
 using ME.Sdk.Library.Common.Http;
 
 namespace ME.Sdk.Library.Api.v1.Auth
-{
+    {
 
     public class AuthClient : IAuthClient
-{
+    {
     private DateTime? _expiration;
     private GetTokenResponse? _cache;
     private readonly IHttpHandler _httpHandler;
     private readonly GetTokenRequest _credentials;
 
     public AuthClient(MEApiSettings settings, IHttpHandler httpHandler)
-    {
+        {
         _httpHandler = httpHandler;
         _credentials = new GetTokenRequest { ClientId = settings.ClientId, ClientSecret = settings.ClientSecret };
     }
 
     public async Task<GetTokenResponse> GetTokenAsync(CancellationToken cancellationToken)
-    {
+        {
         if (_expiration != null && _expiration > DateTime.Now)
             return _cache;
 

@@ -1,7 +1,7 @@
 namespace ME.Sdk.Library.Api
-{
-    public interface IApiHttpClient
     {
+    public interface IApiHttpClient
+        {
 #if NET6_0_OR_GREATER
         Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, string? correlationId, CancellationToken cancellationToken);
         Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, string? correlationId, CancellationToken cancellationToken);
