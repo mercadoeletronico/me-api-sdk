@@ -1,6 +1,6 @@
 namespace ME.Sdk.Library.Api.v1.PreRequest.Request
 {
-public class RejectPreRequestRequest
+    public class RejectPreRequestRequest
 {
     public string PreRequestId { get; set; }
     public string Title { get; set; }

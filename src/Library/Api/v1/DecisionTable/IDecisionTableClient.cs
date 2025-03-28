@@ -4,7 +4,7 @@ using ME.Sdk.Library.Api.v1.DecisionTable.Response;
 namespace ME.Sdk.Library.Api.v1.DecisionTable
 {
 
-public interface IDecisionTableClient
+    public interface IDecisionTableClient
 {
     Task<CreateDecisionTableResponse> CreateAsync(CreateDecisionTableRequest request,
 #if NET6_0_OR_GREATER

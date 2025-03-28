@@ -4,7 +4,7 @@ using ME.Sdk.Library.Api.v1.DecisionTable.Response;
 namespace ME.Sdk.Library.Api.v1.DecisionTable
 {
 
-public class DecisionTableClient : IDecisionTableClient
+    public class DecisionTableClient : IDecisionTableClient
 {
     private readonly IApiHttpClient _httpClient;
 

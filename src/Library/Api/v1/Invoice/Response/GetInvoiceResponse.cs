@@ -1,6 +1,6 @@
 ﻿namespace ME.Sdk.Library.Api.v1.Invoice.Response
 {
-public class GetInvoiceResponse
+    public class GetInvoiceResponse
 {
 #if NET6_0_OR_GREATER
     public string? SerialNumber { get; set; }

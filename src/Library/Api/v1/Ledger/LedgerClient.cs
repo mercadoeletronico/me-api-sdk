@@ -4,7 +4,7 @@ using ME.Sdk.Library.Api.v1.Ledger.Response;
 namespace ME.Sdk.Library.Api.v1.Ledger
 {
 
-public class LedgerClient : ILedgerClient
+    public class LedgerClient : ILedgerClient
 {
     private readonly IApiHttpClient _httpClient;
 

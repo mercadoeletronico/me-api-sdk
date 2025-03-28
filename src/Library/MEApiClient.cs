@@ -12,7 +12,7 @@ using ME.Sdk.Library.Common.Http;
 namespace ME.Sdk.Library
 {
 
-public class MEApiClient : IMEApiClient
+    public class MEApiClient : IMEApiClient
 {
     public IAuthClient AuthClient { get; }
     public IPreOrderClient PreOrderClient { get; }

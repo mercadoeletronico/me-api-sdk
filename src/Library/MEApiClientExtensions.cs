@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ME.Sdk.Library
 {
 
-public static class MEApiClientExtensions
+    public static class MEApiClientExtensions
 {
     /// <summary>
     /// Adds ME APIs Client to the specified <see cref="IServiceCollection" />.

@@ -1,7 +1,7 @@
 namespace ME.Sdk.Library.Common.Http
 {
 
-public interface IHttpHandler
+    public interface IHttpHandler
 {
     Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
     Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
@@ -10,7 +10,7 @@ public interface IHttpHandler
 }
 }
 
-public sealed class HttpHandlerOptions
+    public sealed class HttpHandlerOptions
 {
 #if NET6_0_OR_GREATER
     public string? BearerToken { get; set; }

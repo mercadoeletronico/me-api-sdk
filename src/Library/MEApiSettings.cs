@@ -1,6 +1,6 @@
 namespace ME.Sdk.Library
 {
-public class MEApiSettings
+    public class MEApiSettings
 {
 #if NET6_0_OR_GREATER
     public string? BaseAddress { get; set; }

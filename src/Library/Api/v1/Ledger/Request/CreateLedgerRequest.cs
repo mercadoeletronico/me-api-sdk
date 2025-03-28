@@ -1,6 +1,6 @@
 ﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
-public class CreateLedgerRequest
+    public class CreateLedgerRequest
 {
     public string Code { get; set; }
     public string Description { get; set; }

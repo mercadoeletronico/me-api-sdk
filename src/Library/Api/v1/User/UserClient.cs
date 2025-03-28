@@ -4,7 +4,7 @@ using ME.Sdk.Library.Api.v1.User.Response;
 namespace ME.Sdk.Library.Api.v1.User
 {
 
-public class UserClient : IUserClient
+    public class UserClient : IUserClient
 {
     private readonly IApiHttpClient _httpClient;
 

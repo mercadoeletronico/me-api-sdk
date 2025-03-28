@@ -1,6 +1,6 @@
 namespace ME.Sdk.Library.Api.v1.PreRequest.Response
 {
-public class GetPreRequestResponse
+    public class GetPreRequestResponse
 {
     public string PreRequestId { get; set; }
     public string Title { get; set; }

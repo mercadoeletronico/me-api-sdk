@@ -3,7 +3,7 @@ using ME.Sdk.Library.Api.v1.PreRequest.Response;
 
 namespace ME.Sdk.Library.Api.v1.PreRequest
 {
-public class PreRequestClient : IPreRequestClient
+    public class PreRequestClient : IPreRequestClient
 {
     private readonly IApiHttpClient _httpClient;
 

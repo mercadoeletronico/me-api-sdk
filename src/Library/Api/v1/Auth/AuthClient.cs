@@ -5,7 +5,7 @@ using ME.Sdk.Library.Common.Http;
 namespace ME.Sdk.Library.Api.v1.Auth
 {
 
-public class AuthClient : IAuthClient
+    public class AuthClient : IAuthClient
 {
     private DateTime? _expiration;
     private GetTokenResponse? _cache;

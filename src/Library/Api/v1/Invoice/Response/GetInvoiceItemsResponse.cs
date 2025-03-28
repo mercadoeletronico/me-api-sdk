@@ -1,6 +1,6 @@
 ﻿namespace ME.Sdk.Library.Api.v1.Invoice.Response
 {
-public class GetInvoiceItemsResponse
+    public class GetInvoiceItemsResponse
 {
     public int InvoiceItemId { get; set; }
     public double? Quantity { get; set; }

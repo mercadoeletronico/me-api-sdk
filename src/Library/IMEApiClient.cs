@@ -13,7 +13,7 @@ namespace ME.Sdk.Library
     /// Provides clients for accessing Mercado Eletrônico APIs. 
 /// For more information, see the <see href="https://developer.me.com.br/">documentation</see>.
 /// </summary>
-public interface IMEApiClient
+    public interface IMEApiClient
 {
     /// <summary>
     /// Client for managing authentication and token generation.

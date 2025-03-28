@@ -1,6 +1,6 @@
 ﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
-public class UpdateLedgerRequest
+    public class UpdateLedgerRequest
 {
 #if NET6_0_OR_GREATER
     public string? Description { get; set; }

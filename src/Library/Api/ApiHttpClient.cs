@@ -5,9 +5,8 @@ using ME.Sdk.Library.Common.Model;
 
 namespace ME.Sdk.Library.Api
 {
-
-public class ApiHttpClient : IApiHttpClient
-{
+    public class ApiHttpClient : IApiHttpClient
+    {
     private readonly IHttpHandler _httpHandler;
     private readonly IAuthClient _authClient;
 

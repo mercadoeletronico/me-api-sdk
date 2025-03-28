@@ -1,6 +1,6 @@
 ﻿namespace ME.Sdk.Library.Api.v1.User.Response
 {
-public class GetUserResponse
+    public class GetUserResponse
 {
     public int Id { get; set; }
     public string Name { get; set; }
