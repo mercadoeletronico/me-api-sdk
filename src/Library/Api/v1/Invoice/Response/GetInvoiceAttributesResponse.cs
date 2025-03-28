@@ -11,3 +11,4 @@ public class GetInvoiceAttributesResponse
     public string Description { get; set; }
 #endif
 }
+}

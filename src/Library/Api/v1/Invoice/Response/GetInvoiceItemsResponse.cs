@@ -12,3 +12,4 @@ public class GetInvoiceItemsResponse
     public string Description { get; set; }
 #endif
 }
+}
