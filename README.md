@@ -5,7 +5,7 @@ ME.Api.Sdk is a C# SDK that simplifies integration with Mercado Eletrônico APIs
 **APIs Reference:** [Mercado Eletrônico APIs](https://developer.me.com.br/)
 
 ## Requirements
-.NET 6.0 or higher
+.NET 6.0 or higher, or .NET Standard 2.0/2.1
 
 ## Installation
 

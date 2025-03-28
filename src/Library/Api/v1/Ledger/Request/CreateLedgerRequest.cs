@@ -1,16 +1,24 @@
-﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request;
-
-public class CreateLedgerRequest
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+﻿namespace ME.Sdk.Library.Api.v1.Ledger.Request
 {
-    public string Code { get; set; }
-    public string Description { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsBlocked { get; set; }
-    public bool IsDeactivated { get; set; }
-    public bool? AreAllBusinessOrganizationsIncluded { get; set; }
-    public bool? AreAllCostCentersIncluded { get; set; }
-    public bool? AreAllServiceOrdersIncluded { get; set; }
-    public List<CreateLedgerBusinessOrganizationRequest>? BusinessOrganizations { get; set; }
-    public List<CreateLedgerCostCenterRequest>? CostCenters { get; set; }
-    public List<CreateLedgerCostCenterRequest>? ServiceOrders { get; set; }
+    public class CreateLedgerRequest
+    {
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsBlocked { get; set; }
+        public bool IsDeactivated { get; set; }
+        public bool? AreAllBusinessOrganizationsIncluded { get; set; }
+        public bool? AreAllCostCentersIncluded { get; set; }
+        public bool? AreAllServiceOrdersIncluded { get; set; }
+        public List<CreateLedgerBusinessOrganizationRequest>? BusinessOrganizations { get; set; }
+        public List<CreateLedgerCostCenterRequest>? CostCenters { get; set; }
+        public List<CreateLedgerCostCenterRequest>? ServiceOrders { get; set; }
+    }
 }
