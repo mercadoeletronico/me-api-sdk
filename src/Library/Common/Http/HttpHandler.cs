@@ -91,7 +91,7 @@ namespace ME.Sdk.Library.Common.Http
             {
                 var fileContent = new StreamContent(multiPart.Stream);
                 fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
-                request.Content = new MultipartFormDataContent {{fileContent, multiPart.Name, multiPart.FileName}};
+                request.Content = new MultipartFormDataContent {{fileContent, multiPart.Name, multiPart.FileName};
             }
             else
             {
@@ -168,5 +168,5 @@ namespace ME.Sdk.Library.Common.Http
     {
         _client.Dispose();
     }
-}}
+}
 }
