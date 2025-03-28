@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ME.Sdk.Library;
+namespace ME.Sdk.Library
+{
 
 public static class MEApiClientExtensions
 {

@@ -1,8 +1,8 @@
 using ME.Sdk.Library.Api.v1.PreRequest.Request;
 using ME.Sdk.Library.Api.v1.PreRequest.Response;
 
-namespace ME.Sdk.Library.Api.v1.PreRequest;
-
+namespace ME.Sdk.Library.Api.v1.PreRequest
+{
 public class PreRequestClient : IPreRequestClient
 {
     private readonly IApiHttpClient _httpClient;
@@ -26,4 +26,5 @@ public class PreRequestClient : IPreRequestClient
     {
         return await _httpClient.PostAsync<RejectPreRequestResponse>($"/v1/pre-requests/{request.PreRequestId}/reject", new {}, correlationId, cancellationToken);
     }
+}
 }

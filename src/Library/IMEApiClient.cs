@@ -7,10 +7,10 @@ using ME.Sdk.Library.Api.v1.PreOrder;
 using ME.Sdk.Library.Api.v1.PreRequest;
 using ME.Sdk.Library.Api.v1.User;
 
-namespace ME.Sdk.Library;
-
-/// <summary>
-/// Provides clients for accessing Mercado Eletrônico APIs. 
+namespace ME.Sdk.Library
+{
+    /// <summary>
+    /// Provides clients for accessing Mercado Eletrônico APIs. 
 /// For more information, see the <see href="https://developer.me.com.br/">documentation</see>.
 /// </summary>
 public interface IMEApiClient

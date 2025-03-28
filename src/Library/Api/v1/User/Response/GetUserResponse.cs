@@ -1,5 +1,5 @@
-﻿namespace ME.Sdk.Library.Api.v1.User.Response;
-
+﻿namespace ME.Sdk.Library.Api.v1.User.Response
+{
 public class GetUserResponse
 {
     public int Id { get; set; }
@@ -14,4 +14,5 @@ public class GetUserResponse
     public string IntegrationTag { get; set; }
     public bool isDeactivated { get; set; }
     public int LanguageId { get; set; }
+}
 }

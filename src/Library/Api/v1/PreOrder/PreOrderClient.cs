@@ -1,9 +1,9 @@
 using ME.Sdk.Library.Api.v1.PreOrder.Request;
 using ME.Sdk.Library.Api.v1.PreOrder.Response;
 
-namespace ME.Sdk.Library.Api.v1.PreOrder;
-
-public class PreOrderClient : IPreOrderClient
+namespace ME.Sdk.Library.Api.v1.PreOrder
+{
+    public class PreOrderClient : IPreOrderClient
 {
     private readonly IApiHttpClient _httpClient;
 
@@ -16,4 +16,5 @@ public class PreOrderClient : IPreOrderClient
     {
         return await _httpClient.GetAsync<GetPreOrderResponse>($"/v1/pre-orders/{request.PreOrderId}", cancellationToken);
     }
+}
 }

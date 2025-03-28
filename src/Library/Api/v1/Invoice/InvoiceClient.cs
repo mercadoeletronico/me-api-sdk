@@ -1,9 +1,9 @@
 ﻿using ME.Sdk.Library.Api.v1.Invoice.Request;
 using ME.Sdk.Library.Api.v1.Invoice.Response;
 
-namespace ME.Sdk.Library.Api.v1.Invoice;
-
-public class InvoiceClient : IInvoiceClient
+namespace ME.Sdk.Library.Api.v1.Invoice
+{
+    public class InvoiceClient : IInvoiceClient
 {
     private readonly IApiHttpClient _httpClient;
 
@@ -32,4 +32,5 @@ public class InvoiceClient : IInvoiceClient
     {
         return await _httpClient.GetPagingResultAsync<GetInvoiceBusinessOrganizationsResponse>($"/v1/invoices/{request.InvoiceId}/business-organizations", cancellationToken);
     }
+}
 }

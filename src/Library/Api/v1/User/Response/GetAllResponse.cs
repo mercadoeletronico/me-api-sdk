@@ -1,5 +1,5 @@
-﻿namespace ME.Sdk.Library.Api.v1.User.Response;
-
+﻿namespace ME.Sdk.Library.Api.v1.User.Response
+{
 public class GetAllResponse
 {
     public int UserId { get; set; }

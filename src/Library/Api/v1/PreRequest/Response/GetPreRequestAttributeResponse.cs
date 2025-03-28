@@ -1,5 +1,5 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Response;
-
+namespace ME.Sdk.Library.Api.v1.PreRequest.Response
+{
 public class GetPreRequestAttributeResponse
 {
     public int ItemNumber { get; set; }

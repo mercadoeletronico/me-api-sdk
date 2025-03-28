@@ -9,7 +9,8 @@ using ME.Sdk.Library.Api.v1.PreRequest;
 using ME.Sdk.Library.Api.v1.User;
 using ME.Sdk.Library.Common.Http;
 
-namespace ME.Sdk.Library;
+namespace ME.Sdk.Library
+{
 
 public class MEApiClient : IMEApiClient
 {
@@ -20,7 +21,8 @@ public class MEApiClient : IMEApiClient
     public IBillsClient BillsClient { get; }
     public IInvoiceClient InvoiceClient { get; set; }
     public IUserClient UserClient { get; }
-    public ILedgerClient LedgerClient { get; }
+    public ILedgerClient LedgerClient { get;}
+}
 
     public MEApiClient(MEApiSettings settings)
     {

@@ -1,5 +1,5 @@
-namespace ME.Sdk.Library.Api.v1.PreRequest.Request;
-
+namespace ME.Sdk.Library.Api.v1.PreRequest.Request
+{
 public class RejectPreRequestItemRequest
 {
     public int ItemNumber { get; set; }
