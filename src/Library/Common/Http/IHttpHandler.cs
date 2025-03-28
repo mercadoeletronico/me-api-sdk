@@ -1,4 +1,5 @@
-namespace ME.Sdk.Library.Common.Http;
+namespace ME.Sdk.Library.Common.Http
+{
 
 public interface IHttpHandler
 {
@@ -6,6 +7,7 @@ public interface IHttpHandler
     Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
     Task<TResponse> GetAsync<TResponse>(string endpoint, HttpHandlerOptions options);
     Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, HttpHandlerOptions options);
+}
 }
 
 public sealed class HttpHandlerOptions

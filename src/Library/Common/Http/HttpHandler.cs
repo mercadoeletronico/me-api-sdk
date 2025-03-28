@@ -12,9 +12,9 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 
-namespace ME.Sdk.Library.Common.Http;
-
-public class HttpHandler : IHttpHandler, IDisposable
+namespace ME.Sdk.Library.Common.Http
+{
+    public class HttpHandler : IHttpHandler, IDisposable
 {
     private readonly HttpClient _client;
     private const string CorrelationHeader = "X-ME-CORRELATION-ID";
@@ -168,4 +168,4 @@ public class HttpHandler : IHttpHandler, IDisposable
     {
         _client.Dispose();
     }
-}
+}}

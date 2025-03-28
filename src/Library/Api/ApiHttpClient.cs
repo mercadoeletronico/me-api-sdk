@@ -3,7 +3,8 @@ using ME.Sdk.Library.Common.Exceptions;
 using ME.Sdk.Library.Common.Http;
 using ME.Sdk.Library.Common.Model;
 
-namespace ME.Sdk.Library.Api;
+namespace ME.Sdk.Library.Api
+{
 
 public class ApiHttpClient : IApiHttpClient
 {
@@ -16,7 +17,12 @@ public class ApiHttpClient : IApiHttpClient
         _authClient = authClient;
     }
 
-    public async Task<TResponse> PostAsync<TResponse>(string endpoint, object payload, string? correlationId,
+    public async Task<TResponse> PostAsync<TResponse>(string endpoint, object payload,
+#if NET6_0_OR_GREATER
+        string? correlationId,
+#else
+        string correlationId,
+#endif
         CancellationToken cancellationToken)
     {
         return await Execute(async () =>
@@ -32,7 +38,12 @@ public class ApiHttpClient : IApiHttpClient
         }, cancellationToken);
     }
 
-    public async Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload, string? correlationId,
+    public async Task<TResponse> DeleteAsync<TResponse>(string endpoint, object payload,
+#if NET6_0_OR_GREATER
+        string? correlationId,
+#else
+        string correlationId,
+#endif
         CancellationToken cancellationToken)
     {
         return await Execute(async () =>
@@ -80,7 +91,12 @@ public class ApiHttpClient : IApiHttpClient
         return collection;
     }
 
-    public async Task<TResponse> PutAsync<TResponse>(string endpoint, object payload, string? correlationId,
+    public async Task<TResponse> PutAsync<TResponse>(string endpoint, object payload,
+#if NET6_0_OR_GREATER
+        string? correlationId,
+#else
+        string correlationId,
+#endif
         CancellationToken cancellationToken)
     {
         return await Execute(async () =>

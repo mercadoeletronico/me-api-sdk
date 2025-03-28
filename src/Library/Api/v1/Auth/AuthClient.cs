@@ -2,7 +2,8 @@ using ME.Sdk.Library.Api.v1.Auth.Request;
 using ME.Sdk.Library.Api.v1.Auth.Response;
 using ME.Sdk.Library.Common.Http;
 
-namespace ME.Sdk.Library.Api.v1.Auth;
+namespace ME.Sdk.Library.Api.v1.Auth
+{
 
 public class AuthClient : IAuthClient
 {
