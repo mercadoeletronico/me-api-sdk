@@ -68,8 +68,16 @@ public class HttpHandler : IHttpHandler, IDisposable
             await HandleError(response, options.CancellationToken, _logger);
 
         var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
+#if NET6_0_OR_GREATER
         return JsonSerializer.Deserialize<TResponse>(responseContent,
             options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
+#else
+        var result = JsonSerializer.Deserialize<TResponse>(responseContent,
+            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
+        if (result == null)
+            throw new InvalidOperationException("Failed to deserialize response");
+        return result;
+#endif
     }
 
     private async Task<TResponse> SendAsync<TResponse>(HttpMethod method, string endpoint, object payload,
@@ -104,8 +112,16 @@ public class HttpHandler : IHttpHandler, IDisposable
             await HandleError(response, options.CancellationToken, _logger);
 
         var responseContent = response.Content.ReadAsStringAsync(options.CancellationToken).Result;
+#if NET6_0_OR_GREATER
         return JsonSerializer.Deserialize<TResponse>(responseContent,
             options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true})!;
+#else
+        var result = JsonSerializer.Deserialize<TResponse>(responseContent,
+            options: new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
+        if (result == null)
+            throw new InvalidOperationException("Failed to deserialize response");
+        return result;
+#endif
     }
 
     private static async Task HandleError(HttpResponseMessage response, CancellationToken cancellationToken, ILogger logger)
@@ -130,7 +146,13 @@ public class HttpHandler : IHttpHandler, IDisposable
                 throw new UnauthorizedException("unauthorized");
         }
 
+#if NET6_0_OR_GREATER
         var error = await response.Content.ReadFromJsonAsync<HttpErrorResponse>(cancellationToken: cancellationToken);
+#else
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var error = JsonSerializer.Deserialize<HttpErrorResponse>(responseContent, 
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+#endif
         var message = error?.Detail ?? error?.Title ?? "Something went wrong.";
 
         throw response.StatusCode switch
