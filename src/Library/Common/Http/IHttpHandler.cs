@@ -21,3 +21,4 @@ namespace ME.Sdk.Library.Common.Http
 #endif
     public CancellationToken CancellationToken { get; set; } = new();
 }
+}

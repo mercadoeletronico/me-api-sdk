@@ -8,3 +8,4 @@ namespace ME.Sdk.Library.Api.v1.PreOrder
     Task<GetPreOrderResponse> GetPreOrderAsync(GetPreOrderRequest request, CancellationToken cancellationToken);
     }
 }
+}

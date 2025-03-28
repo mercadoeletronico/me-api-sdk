@@ -7,3 +7,4 @@ namespace ME.Sdk.Library.Api.v1.Auth
     Task<GetTokenResponse> GetTokenAsync(CancellationToken cancellationToken);
     }
 }
+}

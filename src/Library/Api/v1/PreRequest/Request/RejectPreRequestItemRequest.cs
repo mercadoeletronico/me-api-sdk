@@ -8,3 +8,4 @@ namespace ME.Sdk.Library.Api.v1.PreRequest.Request
     public string ExpectedDate { get; set; }
     public List<RejectPreRequestItemCostObjectRequest> CostObjects { get; set; }
 }
+}

@@ -15,3 +15,4 @@ namespace ME.Sdk.Library
     public int TimeoutInSeconds { get; set; } = 60;
     public int SleepDurationInSeconds { get; set; } = 1;
 }
+}

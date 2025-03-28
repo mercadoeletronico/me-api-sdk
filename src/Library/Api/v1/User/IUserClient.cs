@@ -10,3 +10,4 @@ namespace ME.Sdk.Library.Api.v1.User
     Task<IList<GetAllResponse>> GetAllAsync(GetAllRequest request, CancellationToken cancellationToken);
     }
 }
+}

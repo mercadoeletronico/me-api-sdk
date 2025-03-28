@@ -6,3 +6,4 @@ namespace ME.Sdk.Library.Api.v1.Auth.Response
     public int ExpiresIn { get; set; }
 }
 }
+}

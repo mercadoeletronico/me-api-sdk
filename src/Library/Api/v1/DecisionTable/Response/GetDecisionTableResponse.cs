@@ -11,3 +11,4 @@ namespace ME.Sdk.Library.Api.v1.DecisionTable.Response
         public List<TableRowResponse> Rows { get; set; } = new();
     }
 }
+}

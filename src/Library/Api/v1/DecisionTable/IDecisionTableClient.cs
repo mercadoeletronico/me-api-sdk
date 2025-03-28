@@ -23,3 +23,4 @@ namespace ME.Sdk.Library.Api.v1.DecisionTable
     Task<IList<GetDecisionTableResponse>> GetAsync(GetDecisionTableRequest request, CancellationToken cancellationToken);
 }
 }
+}

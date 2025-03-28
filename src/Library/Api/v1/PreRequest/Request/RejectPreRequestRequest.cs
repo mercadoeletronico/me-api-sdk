@@ -9,3 +9,4 @@ namespace ME.Sdk.Library.Api.v1.PreRequest.Request
     public List<RejectPreRequestItemRequest> Items { get; set; }
 }
 }
+}

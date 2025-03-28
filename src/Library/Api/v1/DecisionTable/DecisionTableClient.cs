@@ -40,3 +40,4 @@ namespace ME.Sdk.Library.Api.v1.DecisionTable
         return await _httpClient.GetPagingResultAsync<GetDecisionTableResponse>($"/v1/decision-table/{request.TableName}", cancellationToken);
     } 
 }
+}

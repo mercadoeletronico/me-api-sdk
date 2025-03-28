@@ -63,3 +63,4 @@ namespace ME.Sdk.Library
     /// </summary>
     public ILedgerClient LedgerClient { get; }
 }
+}

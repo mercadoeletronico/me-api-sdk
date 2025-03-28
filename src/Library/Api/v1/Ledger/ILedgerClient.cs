@@ -11,3 +11,4 @@ namespace ME.Sdk.Library.Api.v1.Ledger
     Task<DeleteLedgerResponse> DeleteAsync(DeleteLedgerRequest request, string code, string? correlationId, CancellationToken cancellationToken);
     }
 }
+}

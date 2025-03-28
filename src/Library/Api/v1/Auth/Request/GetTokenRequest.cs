@@ -6,3 +6,4 @@ namespace ME.Sdk.Library.Api.v1.Auth.Request
     public string ClientSecret { get; set; }
 }
 }
+}

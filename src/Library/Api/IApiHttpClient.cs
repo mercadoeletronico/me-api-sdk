@@ -15,3 +15,4 @@ namespace ME.Sdk.Library.Api
     Task<IList<TResponse>> GetPagingResultAsync<TResponse>(string endpoint, CancellationToken cancellationToken);
     }
 }
+}
