@@ -12,4 +12,5 @@ public class GetInvoiceResponse
     public string? Currency { get; set; }
     public DateTime? CreationDate { get; set; }
     public string? UserLogin { get; set; }
+    public DateTime? DueDate { get; set; }
 }
