@@ -13,4 +13,5 @@ public class GetInvoiceResponse
     public DateTime? CreationDate { get; set; }
     public string? UserLogin { get; set; }
     public int SupplierId { get; set; }
+    public DateTime? DueDate { get; set; }
 }
